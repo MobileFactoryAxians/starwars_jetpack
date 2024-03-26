@@ -25,5 +25,28 @@
     <string name="error_incorrect_phone_number">Incorrect phone number.</string>
     <string name="error_field_required">This field is required.</string>
     <string name="error_field_passwords_dont_match">Passwords don\'t match.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="homeIntro">Here you will find all the information you need  about your favorite characters, their ships and their planets</string>
+    <string name="hometitle">May the force be with you</string>
+    <string name="textBtnPeople">Characters</string>
+    <string name="textBtnShip">Ships</string>
+    <string name="textBtnPlanet">Planets</string>
+    <string name="title_activity_people">PeopleActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="detailBio">Biographical information</string>
+    <string name="detail_born">Born</string>
+    <string name="physical">Physical description</string>
+    <string name="detail_species">Species</string>
+    <string name="detail_gender">Gender</string>
+    <string name="detail_pron">Pronouns</string>
+    <string name="detail_height">Height</string>
+    <string name="detail_mass">Mass</string>
+    <string name="homeworld">Homeworld</string>
+    <string name="detail_homeworld">Homeworld</string>
 
 </resources>
