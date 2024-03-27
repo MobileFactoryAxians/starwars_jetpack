@@ -1,9 +1,5 @@
 package com.example.starwars.ui.main
 
-import android.animation.ObjectAnimator
-import android.content.Context
-import android.content.res.Configuration
-import android.view.View
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
@@ -14,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import com.example.starwars.R
@@ -27,18 +22,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.starwars.ui.people.PeopleScreen
 import com.example.starwars.ui.theme.ButtonStyle
 import com.example.starwars.ui.theme.StarwarsTheme
 import com.example.starwars.ui.theme.bigFont
@@ -50,6 +44,8 @@ object MainScreen: Screen {
 
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+
         StarwarsTheme {
 
             var expanded by remember {
@@ -84,9 +80,9 @@ object MainScreen: Screen {
                 animationSpec = tween(durationMillis = ANIM_DUR),
                 label = "")
 
-            //Wait 2s and then start the animation
+            //Wait 1s and then start the animation
             LaunchedEffect(Unit) {
-                delay(2000)
+                delay(1000)
                 expanded = true
                 visible = true
             }
@@ -136,7 +132,7 @@ object MainScreen: Screen {
                         ButtonStyle(
                             text = stringResource(id = R.string.textBtnPeople),
                             onClick = {
-                                Toast.makeText(context, "People", Toast.LENGTH_SHORT).show()
+                                navigator.push(PeopleScreen)
                             },
                             modifier = Modifier.fillMaxWidth()
                         )

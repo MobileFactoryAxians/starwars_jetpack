@@ -1,4 +1,4 @@
-package com.example.starwars.ui.main
+package com.example.starwars.ui.people
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.getValue
@@ -13,7 +13,7 @@ import com.example.starwars.data.people.objects.People
 import com.example.starwars.data.people.objects.PeopleListResponse
 import kotlinx.coroutines.launch
 
-class MainScreenModel(): StateScreenModel<MainScreenModel.State>(State.Init), IErrorCallback {
+class PeopleScreenModel(): StateScreenModel<PeopleScreenModel.State>(State.Init), IErrorCallback {
 
     var llState: LazyListState by mutableStateOf(LazyListState(0,0))
 
@@ -28,7 +28,7 @@ class MainScreenModel(): StateScreenModel<MainScreenModel.State>(State.Init), IE
         screenModelScope.launch {
             val peopleResponse = PeopleRepository.getPeople()
             var result =
-                object: CallbackWrapper<PeopleListResponse>(this@MainScreenModel, peopleResponse) {
+                object: CallbackWrapper<PeopleListResponse>(this@PeopleScreenModel, peopleResponse) {
                     override fun onSuccess(data: PeopleListResponse) {
                         if (data != null) {
                             mutableState.value = State.PeopleList(results = data)
