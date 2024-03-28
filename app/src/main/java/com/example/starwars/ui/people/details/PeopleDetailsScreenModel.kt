@@ -6,6 +6,7 @@ import com.example.starwars.data.error.CallbackWrapper
 import com.example.starwars.data.error.IErrorCallback
 import com.example.starwars.data.people.PeopleRepository
 import com.example.starwars.data.people.objects.People
+import com.example.starwars.data.people.remote.HomeworldAPI
 import kotlinx.coroutines.launch
 
 
@@ -13,7 +14,11 @@ class PeopleDetailsScreenModel(): StateScreenModel<PeopleDetailsScreenModel.Stat
 
     sealed class State {
         object Init: State()
-        data class PeopleItem(val result: People): State()
+        data class PeopleItem(
+            val result: People,
+            val specie: String?,
+            val homeworld: String?
+        ): State()
     }
 
     fun getPeople(peopleName: String) {
@@ -24,11 +29,34 @@ class PeopleDetailsScreenModel(): StateScreenModel<PeopleDetailsScreenModel.Stat
                 object: CallbackWrapper<People?>(this@PeopleDetailsScreenModel, response) {
                     override fun onSuccess(data: People?) {
                         if (data != null) {
-                            mutableState.value = State.PeopleItem(result = data)
+                            screenModelScope.launch {
+                                val specie = getSpeciesDetail(data.species.get(0))
+                                val homeworld = getHomeworldDetail(data.homeworld)
+
+                                mutableState.value = State.PeopleItem(
+                                    result = data,
+                                    specie = specie,
+                                    homeworld = homeworld
+                                )
+                            }
                         }
                     }
 
                 }
+        }
+    }
+
+    private suspend fun getSpeciesDetail(speciesURL: String): String? {
+        return speciesURL.let { url ->
+            val speciesResponse = PeopleRepository.getSpecie(url)
+            speciesResponse.result?.name
+        }
+    }
+
+    private suspend fun getHomeworldDetail(homeworldURL: String): String? {
+        return homeworldURL.let { url ->
+            val homeworldResponse = PeopleRepository.getHomeworld(url)
+            homeworldResponse.result?.name
         }
     }
 

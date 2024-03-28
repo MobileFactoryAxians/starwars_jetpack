@@ -66,6 +66,8 @@ data class PeopleDetailsScreen(val peopleName: String) : Screen {
         when (val result = state) {
             is PeopleDetailsScreenModel.State.PeopleItem -> {
                 val people = result.result
+                val specie = result.specie
+                val homeworld = result.homeworld
 
                 Column(
                     modifier = Modifier
@@ -73,6 +75,7 @@ data class PeopleDetailsScreen(val peopleName: String) : Screen {
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp)
                 ) {
+                    /* Biographical Information */
                     Text(
                         text = stringResource(id = R.string.detailBio),
                         style = MaterialTheme.typography.normalStyle,
@@ -87,11 +90,47 @@ data class PeopleDetailsScreen(val peopleName: String) : Screen {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    /* Physical Description */
                     Text(
                         text = stringResource(id = R.string.detailPhysical),
                         style = MaterialTheme.typography.normalStyle,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
+                    )
+
+                    DetailInfo(
+                        title = stringResource(id = R.string.detail_species),
+                        value = specie.toString()
+                    )
+
+                    DetailInfo(
+                        title = stringResource(id = R.string.detail_gender),
+                        value = people.gender
+                    )
+
+                    DetailInfo(
+                        title = stringResource(id = R.string.detail_height),
+                        value = people.height
+                    )
+
+                    DetailInfo(
+                        title = stringResource(id = R.string.detail_mass),
+                        value = people.mass
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    /* Homeworld */
+                    Text(
+                        text = stringResource(id = R.string.detailHomeworld),
+                        style = MaterialTheme.typography.normalStyle,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    DetailInfo(
+                        title = stringResource(id = R.string.detailHomeworld),
+                        value = homeworld.toString()
                     )
                 }
             }

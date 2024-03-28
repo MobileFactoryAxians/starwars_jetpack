@@ -46,7 +46,6 @@
     <string name="detail_pron">Pronouns</string>
     <string name="detail_height">Height</string>
     <string name="detail_mass">Mass</string>
-    <string name="homeworld">Homeworld</string>
-    <string name="detail_homeworld">Homeworld</string>
+    <string name="detailHomeworld">Homeworld</string>
 
 </resources>
