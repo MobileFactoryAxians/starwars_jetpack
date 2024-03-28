@@ -40,7 +40,7 @@
     <string name="previous">Previous</string>
     <string name="detailBio">Biographical information</string>
     <string name="detail_born">Born</string>
-    <string name="physical">Physical description</string>
+    <string name="detailPhysical">Physical description</string>
     <string name="detail_species">Species</string>
     <string name="detail_gender">Gender</string>
     <string name="detail_pron">Pronouns</string>

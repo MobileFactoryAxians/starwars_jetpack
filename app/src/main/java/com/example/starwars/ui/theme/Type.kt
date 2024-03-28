@@ -43,3 +43,14 @@ val Typography.bigFont: TextStyle
             color = AppColor
         )
     }
+
+val Typography.smallFont: TextStyle
+    @Composable
+    get() {
+        return TextStyle(
+            fontFamily = FontFamily(Font(R.font.font)),
+            fontWeight = FontWeight.Normal,
+            fontSize = 15.sp,
+            color = AppColor
+        )
+    }

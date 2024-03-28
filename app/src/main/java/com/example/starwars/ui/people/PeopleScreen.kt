@@ -1,6 +1,5 @@
 package com.example.starwars.ui.people
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,13 +17,16 @@ import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.starwars.R
+import com.example.starwars.ui.main.MainScreen
+import com.example.starwars.ui.people.details.PeopleDetailsScreen
 import com.example.starwars.ui.theme.StarwarsTheme
 import com.example.starwars.ui.theme.bigFont
 import com.example.starwars.utils.composable.AppBar
@@ -42,7 +44,11 @@ object PeopleScreen: Screen {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                AppBar()
+                AppBar(
+                    detail = false,
+                    value = "",
+                    MainScreen
+                )
                 Text(
                     text = stringResource(id = R.string.textBtnPeople),
                     style = MaterialTheme.typography.bigFont,
@@ -60,8 +66,6 @@ object PeopleScreen: Screen {
                 }
             }
 
-
-
             LaunchedEffect(currentCompositeKeyHash) {
                 screenModel.getPeople()
             }
@@ -73,7 +77,7 @@ object PeopleScreen: Screen {
         screenModel: PeopleScreenModel
     ) {
         val state by screenModel.state.collectAsState()
-        val context = LocalContext.current
+        val navigator = LocalNavigator.currentOrThrow
 
         when (val result = state) {
             is PeopleScreenModel.State.PeopleList -> {
@@ -88,7 +92,9 @@ object PeopleScreen: Screen {
                             PeopleItem(
                                 people = people,
                                 onItemClick = {
-                                    Toast.makeText(context, people.name, Toast.LENGTH_SHORT).show()
+                                    navigator.push(
+                                        PeopleDetailsScreen(peopleName = people.name)
+                                    )
                                 }
                             )
                         }
